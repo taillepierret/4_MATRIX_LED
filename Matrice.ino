@@ -1,13 +1,14 @@
-////////////////////////////////////////////////// inclusion des bibliotheques utiles /////////////////////////////////////////////////////
+  ////////////////////////////////////////////////// inclusion des bibliotheques utiles /////////////////////////////////////////////////////
 
 #include "MATRIX.h"
 
 
 ////////////////////////////////////////////////// definition des variables pour le code //////////////////////////////////////////////////
 
+
 #define NBR_MTX 4
-#define periode 16   // periode d'affichage d'un pattern en milliseconde
-int buffer[NBR_MTX][8];
+#define periode 0   // periode d'affichage d'un pattern en milliseconde
+int buffer[NBR_MTX][hauteur_matrice];
 LedControl lc=LedControl(12,11,10, NBR_MTX);
 /*
 Broche 12 = DIN
@@ -20,8 +21,8 @@ Broche 10 = CS
 
 //////Modifications de texte :
 
-#define nb_char 14
-const int* phrase[nb_char] = {esp,esp,esp,coeur,J,E,esp,T,apostrophe,A,I,M,E,coeur}; //message à afficher ici
+#define nb_char 18
+const int* phrase[nb_char] = {esp,esp,esp,T,A,I,L,L,E,P,I,E,R,R,E,esp,esp,esp}; //message à afficher ici
 
 //////////////////////////////
 
@@ -35,9 +36,16 @@ void init_matrix(){
   for (int i=0; i< NBR_MTX; i++){
     lc.shutdown(i,false);
   /* Set the brightness to a low value */
-    lc.setIntensity(i,0.8);
+    lc.setIntensity(i,10);
   /* and clear the display */
     lc.clearDisplay(i);
+  }
+}
+
+
+void affichage_char(int num_matrice,const int caractere[hauteur_matrice]){
+  for (int i=0; i<8 ; i++){
+    lc.setRow(num_matrice,i, caractere[i]);
   }
 }
 
@@ -76,4 +84,5 @@ void setup() {
 
 void loop(){
   defilement_gauche(phrase);
+  
 }
